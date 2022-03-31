@@ -29,6 +29,7 @@ int bX,bY;
 int pX1,pY1,pX2,pY2,pX3,pY3,pX4,pY4;
 
 boolean button1 = false;
+
 boolean button2 = false;
 boolean button3 = false;
 boolean button4 = false;
