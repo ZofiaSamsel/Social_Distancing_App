@@ -149,7 +149,9 @@ void draw() {
       //rect(faces[i].x, faces[i].y- faces[i].height-10, faces[i].width, faces[i].height);
       }
       rect(faces[i].x, faces[i].y- faces[i].height-10, faces[i].width, faces[i].height);
-      println(friend);
+      //println(friend);
+      println(button2);
+      println(button3);
     }}  
   
  
@@ -163,14 +165,14 @@ void draw() {
   if(button2) {
     
     //if (friend == true) {
-      friend = true;
+      friend = button2;
     }
 
   
-  if(button3) {
-    //if (friend == false) {
-      friend = false;
-  }
+  //if(button3) {
+  //  //if (friend == false) {
+  //    friend = false;
+  //}
   
   if (button4) {
     marker();
