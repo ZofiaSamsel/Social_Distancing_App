@@ -11,7 +11,7 @@ Capture video;
 OpenCV opencv;
 
 PImage start_screen, virus_screen;
-
+float a;
 boolean friend = false;
 // List of my Face objects (persistent)
 ArrayList<Face> faceList;
@@ -135,23 +135,37 @@ void draw() {
     // Draw all the faces
     for (int i = 0; i < faces.length; i++) {
       stroke(255,222,0);
-      rect(faces[i].x, faces[i].y- faces[i].height-10, faces[i].width, faces[i].height);
+      //rect(faces[i].x, faces[i].y- faces[i].height-10, faces[i].width, faces[i].height);
       println(faceList);
 
       println(faces[i].width);
     if (faces[i].width > 90) {
       //przycisk kliknięty
-      if (friend == true) {
+      if (button2 == true) {
         stroke(0,0,222);
+        fill(0,0,222);
+
         //rect(faces[i].x, faces[i].y- faces[i].height-10, faces[i].width, faces[i].height);
       }
-      else {stroke(255,0,0);
+      else {fill(255,0,0);
       //rect(faces[i].x, faces[i].y- faces[i].height-10, faces[i].width, faces[i].height);
       }
-      rect(faces[i].x, faces[i].y- faces[i].height-10, faces[i].width, faces[i].height);
-      //println(friend);
-      println(button2);
-      println(button3);
+      //rect(faces[i].x, faces[i].y- faces[i].height-10, faces[i].width, faces[i].height);
+      println(friend);
+    lights();
+   
+    pushMatrix();
+    translate(faces[i].x + 20, faces[i].y - 50, 0);    
+    rotateY(a);
+    a+=0.05;
+    
+    noStroke();
+    box(50);
+    popMatrix();
+       
+    if (a == 2*PI) {
+    a = 0;}
+
     }}  
   
  
@@ -161,19 +175,8 @@ void draw() {
     
     }
   }
-  
-  if(button2) {
-    
-    //if (friend == true) {
-      friend = button2;
-    }
+ 
 
-  
-  //if(button3) {
-  //  //if (friend == false) {
-  //    friend = false;
-  //}
-  
   if (button4) {
     marker();
     image(virus_screen, 0, 0);
@@ -198,15 +201,35 @@ void marker() {
       return; //instrukcja warunkowa sprawdzająca czy widoczny jest znacznik 47
     }
     nya.beginTransform(0);  //rozpoczęcie funkcji transformacji obiektu w miejsce znacznika
-    stroke(0,0,100);  // funkcja koloru zewnętrznej ramki (krawędzi)
-    fill(255,200,0, 40); // funkcja koloru wypełnienia zewnętrznej ramki
-    rect(-40,-40,80,80); // funkcja tworząca prostokąt: koordynaty zewnętrznej ramki
-    fill(0,0,255,10); // funkcja koloru wypełnienia kostki
-    stroke(255,0,255); // funkcja koloru krawędzi kostki
-    strokeWeight(4); // funkcja grubości krawędzi
-    translate(0,0,20); //funkcja dopasowania obiektu do aktualnego okna
-    box(40); // funkcja tworząca kostkę 
-    println("tu");
+    
+    
+    //stroke(255,200,0);
+    //translate(0,0,20);
+    ////if(nya.markerid==0){fill(255,0,0);}else if(nya.markerid==1){fill(0,0,255);}
+    //box(40);
+    
+    
+    
+       translate(0,0,20);
+
+       { 
+         stroke(255,200,0);
+         box(40);
+  
+         stroke(0,200,255);
+         sphere(25);
+       }
+    
+    
+    //stroke(0,0,100);  // funkcja koloru zewnętrznej ramki (krawędzi)
+    //fill(255,200,0, 40); // funkcja koloru wypełnienia zewnętrznej ramki
+    //rect(-40,-40,80,80); // funkcja tworząca prostokąt: koordynaty zewnętrznej ramki
+    //fill(0,0,255,10); // funkcja koloru wypełnienia kostki
+    //stroke(255,0,255); // funkcja koloru krawędzi kostki
+    //strokeWeight(4); // funkcja grubości krawędzi
+    //translate(0,0,20); //funkcja dopasowania obiektu do aktualnego okna
+    //box(40); // funkcja tworząca kostkę 
+    //println("tu");
     nya.endTransform(); // zakończenie funkcji transformacji
     //delay(500);
 }

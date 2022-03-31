@@ -15,7 +15,7 @@ class Face {
   // Assign a number to each face
   int id;
  
-  float s;
+  //float a;
  
   // Make me
   Face(int newID, int x, int y, int w, int h, float s) {
