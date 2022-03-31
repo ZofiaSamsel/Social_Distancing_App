@@ -11,7 +11,7 @@ Capture video;
 OpenCV opencv;
 
 
-PImage start_screen, virus_screen;
+PImage start_screen, virus_screen, biohazard;
 float a;
 boolean friend = false;
 // List of my Face objects (persistent)
@@ -39,6 +39,7 @@ void setup() {
   size(640, 480, P3D);
   background(color(211,211,211));
   
+  biohazard = loadImage("data/biohazard.jpg");
   start_screen = loadImage("data/ekran_start.jpg");
   virus_screen = loadImage("data/ekran_loneliness.jpg");
   
@@ -202,8 +203,8 @@ void marker() {
       return; //instrukcja warunkowa sprawdzająca czy widoczny jest znacznik 47
     }
     nya.beginTransform(0);  //rozpoczęcie funkcji transformacji obiektu w miejsce znacznika
-       translate(-start_screen.width/2,-start_screen.height/2,0);
-       start_screen();
+       translate(-biohazard.width/2,-biohazard.height/2,0);
+       biohazard();
        { 
          stroke(255,200,0);
          box(40);
@@ -317,6 +318,9 @@ void captureEvent(Capture c) {
 
 void start_screen(){
   image(start_screen,0,0);
+}
+void biohazard(){
+  image(biohazard,0,0);
 }
 
 void mousePressed(){
