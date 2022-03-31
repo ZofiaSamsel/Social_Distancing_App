@@ -10,6 +10,7 @@ ControlP5 cp5;
 Capture video;
 OpenCV opencv;
 
+
 PImage start_screen, virus_screen;
 float a;
 boolean friend = false;
@@ -142,7 +143,7 @@ void draw() {
     if (faces[i].width > 90) {
       //przycisk kliknięty
       if (button2 == true) {
-        stroke(0,0,222);
+        //stroke(0,0,222);
         fill(0,0,222);
 
         //rect(faces[i].x, faces[i].y- faces[i].height-10, faces[i].width, faces[i].height);
@@ -151,7 +152,7 @@ void draw() {
       //rect(faces[i].x, faces[i].y- faces[i].height-10, faces[i].width, faces[i].height);
       }
       //rect(faces[i].x, faces[i].y- faces[i].height-10, faces[i].width, faces[i].height);
-      println(friend);
+      //println(friend);
     lights();
    
     pushMatrix();
@@ -201,17 +202,8 @@ void marker() {
       return; //instrukcja warunkowa sprawdzająca czy widoczny jest znacznik 47
     }
     nya.beginTransform(0);  //rozpoczęcie funkcji transformacji obiektu w miejsce znacznika
-    
-    
-    //stroke(255,200,0);
-    //translate(0,0,20);
-    ////if(nya.markerid==0){fill(255,0,0);}else if(nya.markerid==1){fill(0,0,255);}
-    //box(40);
-    
-    
-    
-       translate(0,0,20);
-
+       translate(-start_screen.width/2,-start_screen.height/2,0);
+       start_screen();
        { 
          stroke(255,200,0);
          box(40);
@@ -219,19 +211,8 @@ void marker() {
          stroke(0,200,255);
          sphere(25);
        }
-    
-    
-    //stroke(0,0,100);  // funkcja koloru zewnętrznej ramki (krawędzi)
-    //fill(255,200,0, 40); // funkcja koloru wypełnienia zewnętrznej ramki
-    //rect(-40,-40,80,80); // funkcja tworząca prostokąt: koordynaty zewnętrznej ramki
-    //fill(0,0,255,10); // funkcja koloru wypełnienia kostki
-    //stroke(255,0,255); // funkcja koloru krawędzi kostki
-    //strokeWeight(4); // funkcja grubości krawędzi
-    //translate(0,0,20); //funkcja dopasowania obiektu do aktualnego okna
-    //box(40); // funkcja tworząca kostkę 
-    //println("tu");
     nya.endTransform(); // zakończenie funkcji transformacji
-    //delay(500);
+
 }
 
 
