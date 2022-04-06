@@ -2,10 +2,9 @@ import gab.opencv.*;
 import processing.video.*;
 import java.awt.*;
 import controlP5.*;
-import jp.nyatla.nyar4psg.*; // import biblioteki nyar4psg, umożliwia odczyt znaczników
+import jp.nyatla.nyar4psg.*; 
 
-MultiMarker nya; // obiekt klasy znaczników
- 
+MultiMarker nya;
 ControlP5 cp5; 
 Capture video;
 OpenCV opencv;
@@ -30,10 +29,9 @@ int bX,bY;
 int pX1,pY1,pX2,pY2,pX3,pY3,pX4,pY4;
 
 boolean button1 = false;
-
 boolean button2 = false;
 boolean button3 = false;
-boolean button4 = false;
+
 
 void setup() {
   size(640, 480, P3D);
@@ -54,22 +52,21 @@ void setup() {
   faceList = new ArrayList<Face>();
   
   //width and height of a button
-  bX = 150;
-  bY = 40;
+  bX = width/5;
+  bY = height/15;
   
   //position of the button1
-  pX1 = 150;
-  pY1 = height-40;
+  pX1 = width/2 - bX/2;
+  pY1 = height-bY;
   
   //position of the button2
-  pX2 = 0;
-  pY2 = height-40;
+  pX2 = width/2 - bX- bX;
+  pY2 = height-bY;
   
 //button3
-  pX3 = 300;
-  pY3 = height-40;
-  pX4 = 450;
-  pY4 = height-40;
+  pX3 = width/2 +bX ;
+  pY3 = height-bY;
+
   
   cp5 = new ControlP5(this);
   cp5.addButton("Button1")
@@ -105,20 +102,9 @@ void setup() {
     .getCaptionLabel()            //The lines from .getCaptionLabel() should go to
     .setFont(createFont("",20))  //followed and applied to the button source
     .toUpperCase(false)           //Avoid all capital letters in the text
-    .setText("Stop Friend")            //Button text
+    .setText("Marker")            //Button text
     .setColor(color(0,0,255));
-    
-      cp5.addButton("Button4")
-    .setPosition(pX4, pY4)
-    .setSize(bX, bY)
-    .setColorActive(color(255,255,255))
-    .setColorBackground(color(255,120,120))//Color of the button the without mouse pointer on it
-    .setColorForeground(color(255,80,80)) //Color of the button with mouse pointer over it
-    .getCaptionLabel()            //The lines from .getCaptionLabel() should go to
-    .setFont(createFont("",20))  //followed and applied to the button source
-    .toUpperCase(false)           //Avoid all capital letters in the text
-    .setText("Markers")            //Button text
-    .setColor(color(0,0,255));
+
   video.start();
 }
  // main draw void which display and draw elements
@@ -137,7 +123,26 @@ void draw() {
     
     // Draw all the faces
     for (int i = 0; i < faces.length; i++) {
-    //drawing an overhead object
+       
+    if (a == 2*PI) {
+    a = 0;}
+    println(faces[i].width);
+    //check the size of the face square, if it is too big mark it red
+    if (faces[i].width > 200) {
+       stroke(255,0,0);
+       noFill();
+       strokeWeight(3);}
+      //button clicked
+
+      else{
+      stroke(0,255,255);
+      noFill();
+      strokeWeight(3);  
+    }
+   if (button2 == true && faces[i].width > 200) {
+      stroke(0,0,222);
+      }
+          //drawing an overhead object
     lights();
     pushMatrix();
     translate(faces[i].x + ( faces[i].width / 2) , faces[i].y - 80., 0);    
@@ -145,23 +150,7 @@ void draw() {
     a+=0.05;
     box(50);
     popMatrix();
-       
-    if (a == 2*PI) {
-    a = 0;}
-    println(faces[i].width);
-    //check the size of the face square, if it is too big mark it red
-    if (faces[i].width > 200) {
-      //button clicked
-       stroke(255,0,0);
-       noFill();
-       strokeWeight(3);
-    }else{
-      stroke(0,255,255);
-      noFill();
-      strokeWeight(3);
-      
-    }
-      rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
+    rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
 }  
   
  
@@ -173,7 +162,7 @@ void draw() {
   }
  
 
-  if (button4) {
+  if (button3) {
     marker();
     image(virus_screen, 0, 0);
     image(video, 0,0);
@@ -327,7 +316,5 @@ void mousePressed(){
   if(mouseX > pX3 && mouseX < pX3+bX && mouseY > pY3 && mouseY < pY3+bY) {
     button3 = !button3;
     }
-  if(mouseX > pX4 && mouseX < pX4+bX && mouseY > pY4 && mouseY < pY4+bY) {
-    button4 = !button4;
-  }
+
 }
