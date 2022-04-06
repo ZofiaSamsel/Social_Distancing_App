@@ -12,7 +12,7 @@ OpenCV opencv;
 
 
 PImage start_screen, virus_screen, biohazard;
-float a;
+float a = PI/8;
 boolean friend = false;
 // List of my Face objects (persistent)
 ArrayList<Face> faceList;
@@ -47,8 +47,8 @@ void setup() {
   opencv = new OpenCV(this, width, height);
   opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE);
   
-  nya=new MultiMarker(this, width, height,"data/camera_para.dat",NyAR4PsgConfig.CONFIG_PSG); //przypisanie pliku konfiguracyjnego nyar4psg
-  nya.addARMarker("data/47.patt",80); //wybór znacznika (47) i określenie rozdzielczości
+  nya = new MultiMarker(this, width, height,"data/camera_para.dat",NyAR4PsgConfig.CONFIG_PSG); //assigning the nyar4psg configuration file
+  nya.addARMarker("data/47.patt",80); //select tag (47) and specify resolution
     
  
   faceList = new ArrayList<Face>();
@@ -76,52 +76,52 @@ void setup() {
     .setPosition(pX1, pY1)
     .setSize(bX, bY)
     .setColorActive(color(255,255,255))
-    .setColorBackground(color(255,120,120))//Color del botón el sin puntero del ratón encima
-    .setColorForeground(color(255,80,80)) //Color del botón con puntero del ratón encima
-    .getCaptionLabel()            //Las líneas desde .getCaptionLabel() deben ir
-    .setFont(createFont("",20))  //seguidas y se aplican a la fuente del botón
-    .toUpperCase(false)          //Evita que el texto quede todo en mayúscula
-    .setText("Start/Stop")            //Texto del botón 
+    .setColorBackground(color(255,120,120))//Color of the button the without mouse pointer on it
+    .setColorForeground(color(255,80,80)) //Color of the button with mouse pointer over it
+    .getCaptionLabel()            //The lines from .getCaptionLabel() should go to
+    .setFont(createFont("",20))  //followed and applied to the button source
+    .toUpperCase(false)          //Avoid all capital letters in the text
+    .setText("Start/Stop")            //Button text 
     .setColor(color(0,0,255));
    
   cp5.addButton("Button2")
     .setPosition(pX2, pY2)
     .setSize(bX, bY)
     .setColorActive(color(255,255,255))
-    .setColorBackground(color(255,120,120))//Color del botón el sin puntero del ratón encima
-    .setColorForeground(color(255,80,80)) //Color del botón con puntero del ratón encima
-    .getCaptionLabel()            //Las líneas desde .getCaptionLabel() deben ir
-    .setFont(createFont("",20))  //seguidas y se aplican a la fuente del botón
-    .toUpperCase(false)          //Evita que el texto quede todo en mayúscula
-    .setText("Add exepction")            //Texto del botón 
+    .setColorBackground(color(255,120,120))//Color of the button the without mouse pointer on it
+    .setColorForeground(color(255,80,80)) //Color of the button with mouse pointer over it
+    .getCaptionLabel()            //The lines from .getCaptionLabel() should go to
+    .setFont(createFont("",20))  //followed and applied to the button source
+    .toUpperCase(false)           //Avoid all capital letters in the text
+    .setText("Add exepction")            //Button text 
     .setColor(color(0,0,255));
     ;
       cp5.addButton("Button3")
     .setPosition(pX3, pY3)
     .setSize(bX, bY)
     .setColorActive(color(255,255,255))
-    .setColorBackground(color(255,120,120))//Color del botón el sin puntero del ratón encima
-    .setColorForeground(color(255,80,80)) //Color del botón con puntero del ratón encima
-    .getCaptionLabel()            //Las líneas desde .getCaptionLabel() deben ir
-    .setFont(createFont("",20))  //seguidas y se aplican a la fuente del botón
-    .toUpperCase(false)          //Evita que el texto quede todo en mayúscula
-    .setText("Stop Friend")            //Texto del botón 
+    .setColorBackground(color(255,120,120))//Color of the button the without mouse pointer on it
+    .setColorForeground(color(255,80,80)) //Color of the button with mouse pointer over it
+    .getCaptionLabel()            //The lines from .getCaptionLabel() should go to
+    .setFont(createFont("",20))  //followed and applied to the button source
+    .toUpperCase(false)           //Avoid all capital letters in the text
+    .setText("Stop Friend")            //Button text
     .setColor(color(0,0,255));
     
       cp5.addButton("Button4")
     .setPosition(pX4, pY4)
     .setSize(bX, bY)
     .setColorActive(color(255,255,255))
-    .setColorBackground(color(255,120,120))//Color del botón el sin puntero del ratón encima
-    .setColorForeground(color(255,80,80)) //Color del botón con puntero del ratón encima
-    .getCaptionLabel()            //Las líneas desde .getCaptionLabel() deben ir
-    .setFont(createFont("",20))  //seguidas y se aplican a la fuente del botón
-    .toUpperCase(false)          //Evita que el texto quede todo en mayúscula
-    .setText("Markers")            //Texto del botón 
+    .setColorBackground(color(255,120,120))//Color of the button the without mouse pointer on it
+    .setColorForeground(color(255,80,80)) //Color of the button with mouse pointer over it
+    .getCaptionLabel()            //The lines from .getCaptionLabel() should go to
+    .setFont(createFont("",20))  //followed and applied to the button source
+    .toUpperCase(false)           //Avoid all capital letters in the text
+    .setText("Markers")            //Button text
     .setColor(color(0,0,255));
   video.start();
 }
- 
+ // main draw void which display and draw elements
 void draw() {
   start_screen();
   
@@ -133,42 +133,36 @@ void draw() {
         
     opencv.loadImage(video);
     detectFaces();
-    println(friend);
+    
+    
     // Draw all the faces
     for (int i = 0; i < faces.length; i++) {
-      stroke(255,222,0);
-      //rect(faces[i].x, faces[i].y- faces[i].height-10, faces[i].width, faces[i].height);
-      println(faceList);
-
-      println(faces[i].width);
-    if (faces[i].width > 90) {
-      //przycisk kliknięty
-      if (button2 == true) {
-        //stroke(0,0,222);
-        fill(0,0,222);
-
-        //rect(faces[i].x, faces[i].y- faces[i].height-10, faces[i].width, faces[i].height);
-      }
-      else {fill(255,0,0);
-      //rect(faces[i].x, faces[i].y- faces[i].height-10, faces[i].width, faces[i].height);
-      }
-      //rect(faces[i].x, faces[i].y- faces[i].height-10, faces[i].width, faces[i].height);
-      //println(friend);
+    //drawing an overhead object
     lights();
-   
     pushMatrix();
-    translate(faces[i].x + 20, faces[i].y - 50, 0);    
+    translate(faces[i].x + ( faces[i].width / 2) , faces[i].y - 80., 0);    
     rotateY(a);
     a+=0.05;
-    
-    noStroke();
     box(50);
     popMatrix();
        
     if (a == 2*PI) {
     a = 0;}
-
-    }}  
+    println(faces[i].width);
+    //check the size of the face square, if it is too big mark it red
+    if (faces[i].width > 200) {
+      //button clicked
+       stroke(255,0,0);
+       noFill();
+       strokeWeight(3);
+    }else{
+      stroke(0,255,255);
+      noFill();
+      strokeWeight(3);
+      
+    }
+      rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
+}  
   
  
   for (Face f : faceList) {
@@ -185,24 +179,24 @@ void draw() {
     image(video, 0,0);
     
     if (video.available() !=true) {  
-      return; // instrukcja warunkowa zwracająca obraz z kamery
+        return; // conditional instruction returning a camera image
     }
     //marker();
   }
-//przeskalowanie kamery, marker, przyciski na waczanie przyjaciol i wylacanie przyjaciol 
+//camera scaling, marker, buttons for including friends and deactivating friends 
  
   }
   
    
 void marker() {
-    video.read(); // funkcja zczytywania aktualnej klatki
-    nya.detect(video);  // funkcja wykrywania znaczników w aktualnej klatce
-    nya.drawBackground(video); // funkcja tła przy wyświetlaniu znacznika
+    video.read(); // current frame readout function
+    nya.detect(video);  // Marker detection function in the current frame
+    nya.drawBackground(video); // background function when displaying a tag
     if((!nya.isExist(0))){ 
       println("tak");
-      return; //instrukcja warunkowa sprawdzająca czy widoczny jest znacznik 47
+      return; //conditional statement checking if marker is visible 47
     }
-    nya.beginTransform(0);  //rozpoczęcie funkcji transformacji obiektu w miejsce znacznika
+    nya.beginTransform(0);  //start the function of transforming an object in place of a marker
        translate(-biohazard.width/2,-biohazard.height/2,0);
        biohazard();
        { 
@@ -212,7 +206,7 @@ void marker() {
          stroke(0,200,255);
          sphere(25);
        }
-    nya.endTransform(); // zakończenie funkcji transformacji
+    nya.endTransform(); // termination of the transformation function
 
 }
 
