@@ -34,7 +34,7 @@ boolean button3 = false;
 
 
 void setup() {
-  frameRate(30);
+  //frameRate(30); kod czasem sie nie włącza przez to
   size(640, 480, P3D);
   background(color(211,211,211));
   

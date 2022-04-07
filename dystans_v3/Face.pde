@@ -24,6 +24,7 @@ class Face {
     delete = false;
     id = newID;
   }
+ void display() {}
  
   // Give me a new location / size
   // Oooh, it would be nice to lerp here!
