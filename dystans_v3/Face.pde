@@ -25,21 +25,6 @@ class Face {
     id = newID;
   }
  
-  // Show me
-  void display() {
-    //fill(0,0,255,timer);
-    //stroke(0,0,255);
-    //rect(r.x,r.y,r.width, r.height);
-    //rect(r.x*scl,r.y*scl,r.width*scl, r.height*scl);
-    fill(255,timer*2);
-    text(""+id,r.x+10,r.y+30);
-    //text(""+id,r.x*scl+10,r.y*scl+30);
-    //text(""+id,r.x*scl+10,r.y*scl+30);
-
-  }
-  void s(){
-  }
- 
   // Give me a new location / size
   // Oooh, it would be nice to lerp here!
   void update(Rectangle newR) {

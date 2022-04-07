@@ -12,7 +12,7 @@ OpenCV opencv;
 
 PImage start_screen, virus_screen, biohazard;
 float a = PI/8;
-boolean friend = false;
+
 // List of my Face objects (persistent)
 ArrayList<Face> faceList;
  
@@ -34,6 +34,7 @@ boolean button3 = false;
 
 
 void setup() {
+  frameRate(30);
   size(640, 480, P3D);
   background(color(211,211,211));
   
@@ -128,9 +129,9 @@ void draw() {
     a = 0;}
     println(faces[i].width);
     //check the size of the face square, if it is too big mark it red
-    if (faces[i].width > 200) {
+    if (faces[i].width > 90) {
        stroke(255,0,0);
-       noFill();
+       fill(255,0,0);
        strokeWeight(3);}
       //button clicked
 
@@ -140,7 +141,8 @@ void draw() {
       strokeWeight(3);  
     }
    if (button2 == true && faces[i].width > 200) {
-      stroke(0,0,222);
+     noFill(); 
+     stroke(0,0,222);
       }
           //drawing an overhead object
     lights();
@@ -150,15 +152,15 @@ void draw() {
     a+=0.05;
     box(50);
     popMatrix();
-    rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
-}  
+    //rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
+}
   
  
-  for (Face f : faceList) {
-    strokeWeight(2);
-    f.display();
+  //for (Face f : faceList) {
+  //  strokeWeight(2);
+  //  //f.display();
     
-    }
+  //  }
   }
  
 
@@ -182,18 +184,17 @@ void marker() {
     nya.detect(video);  // Marker detection function in the current frame
     nya.drawBackground(video); // background function when displaying a tag
     if((!nya.isExist(0))){ 
-      println("tak");
       return; //conditional statement checking if marker is visible 47
     }
     nya.beginTransform(0);  //start the function of transforming an object in place of a marker
        translate(-biohazard.width/2,-biohazard.height/2,0);
        biohazard();
-       { 
-         stroke(255,200,0);
-         box(40);
-  
-         stroke(0,200,255);
-         sphere(25);
+       { translate(biohazard.width/2,biohazard.height/2,-20);
+ 
+         box(biohazard.width,biohazard.height,20);
+         stroke(255,204,0);
+         fill(255,0,0);
+
        }
     nya.endTransform(); // termination of the transformation function
 
@@ -205,7 +206,7 @@ void detectFaces() {
  
   // Faces detected in this frame
   faces = opencv.detect();
- 
+
   // Check if the detected faces already exist are new or some has disappeared.
  
   // SCENARIO 1
