@@ -31,6 +31,7 @@ int pX1,pY1,pX2,pY2,pX3,pY3,pX4,pY4;
 boolean button1 = false;
 boolean button2 = false;
 boolean button3 = false;
+boolean button4 = false;
 
 
 void setup() {
@@ -67,6 +68,10 @@ void setup() {
 //button3
   pX3 = width/2 +bX ;
   pY3 = height-bY;
+  
+//button4
+  pX4 = width/2 - 2*bX ;
+  pY4 = height-2*bY;
 
   
   cp5 = new ControlP5(this);
@@ -105,6 +110,18 @@ void setup() {
     .toUpperCase(false)           //Avoid all capital letters in the text
     .setText("Marker")            //Button text
     .setColor(color(0,0,255));
+      
+      cp5.addButton("Button4")
+    .setPosition(pX4, pY4)
+    .setSize(bX, bY)
+    .setColorActive(color(255,255,255))
+    .setColorBackground(color(255,120,120))//Color of the button the without mouse pointer on it
+    .setColorForeground(color(255,80,80)) //Color of the button with mouse pointer over it
+    .getCaptionLabel()            //The lines from .getCaptionLabel() should go to
+    .setFont(createFont("",20))  //followed and applied to the button source
+    .toUpperCase(false)           //Avoid all capital letters in the text
+    .setText("Distance")            //Button text
+    .setColor(color(0,0,255));
 
   video.start();
 }
@@ -115,32 +132,32 @@ void draw() {
   if(button1) {
     
     image(virus_screen, 0, 0);
-    //scale(scl);
     image(video, 0,0);
         
     opencv.loadImage(video);
+    //faces detection
     detectFaces();
     
     
     // Draw all the faces
     for (int i = 0; i < faces.length; i++) {
-       
-    if (a == 2*PI) {
-    a = 0;}
-    println(faces[i].width);
-    //check the size of the face square, if it is too big mark it red
-    if (faces[i].width > 90) {
-       stroke(255,0,0);
-       fill(255,0,0);
-       strokeWeight(3);}
-      //button clicked
 
+    if (a == 2*PI) {
+      a = 0;}
+      //check the size of the face square, if it is too big mark it red
+      if (faces[i].width > 90) {
+        //red   
+        stroke(255,0,0);
+         fill(255,0,0);
+         strokeWeight(3);}
+  
       else{
-      stroke(0,255,255);
-      noFill();
-      strokeWeight(3);  
-    }
-   if (button2 == true && faces[i].width > 200) {
+        //blue
+        stroke(0,255,255);
+        noFill();
+        strokeWeight(3);  
+      }
+   if (button2 == true && faces[i].width > 90) {
      noFill(); 
      stroke(0,0,222);
       }
@@ -152,15 +169,29 @@ void draw() {
     a+=0.05;
     box(50);
     popMatrix();
-    //rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
+
 }
-  
- 
-  //for (Face f : faceList) {
-  //  strokeWeight(2);
-  //  //f.display();
-    
-  //  }
+  //distance between two faces in front of the camera
+     if (faces.length > 1 && button4) {
+       if (faces[1].x < faces[0].x) {
+       int widthfacesL = int(faces[0].x) - int(faces[1].x) - faces[1].width;
+        if (widthfacesL < 300 && widthfacesL > 0) {
+          //text drawing 
+          textSize(widthfacesL/4);
+          fill(255,0,0);
+          text("WARNING",faces[1].x+faces[1].width, faces[1].y + faces[1].height/2);
+       }
+     }
+       if (faces[0].x < faces[1].x) {
+       int widthfaces = int(faces[1].x) - int(faces[0].x) - faces[0].width;
+               if (widthfaces < 300 && widthfaces > 0) {
+       //text drawing
+        textSize(widthfaces/4);
+        fill(255,0,0);
+        text("WARNING", faces[0].x+faces[0].width, faces[1].y + faces[1].height/2);
+     }
+   }
+   }
   }
  
 
@@ -172,7 +203,6 @@ void draw() {
     if (video.available() !=true) {  
         return; // conditional instruction returning a camera image
     }
-    //marker();
   }
 //camera scaling, marker, buttons for including friends and deactivating friends 
  
@@ -190,7 +220,7 @@ void marker() {
        translate(-biohazard.width/2,-biohazard.height/2,0);
        biohazard();
        { translate(biohazard.width/2,biohazard.height/2,-20);
- 
+       // biohazard drawing
          box(biohazard.width,biohazard.height,20);
          stroke(255,204,0);
          fill(255,0,0);
@@ -214,7 +244,7 @@ void detectFaces() {
   if (faceList.isEmpty()) {
     // Just make a Face object for every face Rectangle
     for (int i = 0; i < faces.length; i++) {
-      println("+++ New face detected with ID: " + faceCount);
+      //println("+++ New face detected with ID: " + faceCount);
       faceList.add(new Face(faceCount, faces[i].x,faces[i].y,faces[i].width,faces[i].height, faces[i].width * 2));
       faceCount++;
     }
@@ -222,7 +252,8 @@ void detectFaces() {
  
   // SCENARIO 2
   // We have fewer Face objects than face Rectangles found from OPENCV
-  } else if (faceList.size() <= faces.length) {
+  } 
+  else if (faceList.size() <= faces.length) {
     boolean[] used = new boolean[faces.length];
     // Match existing Face objects with a Rectangle
     for (Face f : faceList) {
@@ -244,7 +275,7 @@ void detectFaces() {
     // Add any unused faces
     for (int i = 0; i < faces.length; i++) {
       if (!used[i]) {
-        println("+++ New face detected with ID: " + faceCount);
+        //println("+++ New face detected with ID: " + faceCount);
         faceList.add(new Face(faceCount, faces[i].x,faces[i].y,faces[i].width,faces[i].height, faces[i].width * 2));
         faceCount++;
       }
@@ -300,9 +331,12 @@ void captureEvent(Capture c) {
   c.read();
 }
 
+//photo loading
 void start_screen(){
   image(start_screen,0,0);
 }
+
+//photo loading
 void biohazard(){
   image(biohazard,0,0);
 }
@@ -316,6 +350,9 @@ void mousePressed(){
   }
   if(mouseX > pX3 && mouseX < pX3+bX && mouseY > pY3 && mouseY < pY3+bY) {
     button3 = !button3;
+    }
+      if(mouseX > pX4 && mouseX < pX4+bX && mouseY > pY4 && mouseY < pY4+bY) {
+    button4 = !button4;
     }
 
 }
