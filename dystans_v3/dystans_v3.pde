@@ -175,7 +175,8 @@ void draw() {
      if (faces.length > 1 && button4) {
        if (faces[1].x < faces[0].x) {
        int widthfacesL = int(faces[0].x) - int(faces[1].x) - faces[1].width;
-        if (widthfacesL < 300 && widthfacesL > 0) {
+       //println((widthfacesL*100/faces[0].width));
+        if ((widthfacesL*100/faces[0].width) < 1000 && widthfacesL > 0) {
           //text drawing 
           textSize(widthfacesL/4);
           fill(255,0,0);
@@ -184,11 +185,11 @@ void draw() {
      }
        if (faces[0].x < faces[1].x) {
        int widthfaces = int(faces[1].x) - int(faces[0].x) - faces[0].width;
-               if (widthfaces < 300 && widthfaces > 0) {
-       //text drawing
-        textSize(widthfaces/4);
-        fill(255,0,0);
-        text("WARNING", faces[0].x+faces[0].width, faces[1].y + faces[1].height/2);
+       if ((widthfaces*100/faces[0].width) < 1000 && widthfaces > 0) {
+         //text drawing
+          textSize(widthfaces/4);
+          fill(255,0,0);
+          text("WARNING", faces[0].x+faces[0].width, faces[1].y + faces[1].height/2);
      }
    }
    }
