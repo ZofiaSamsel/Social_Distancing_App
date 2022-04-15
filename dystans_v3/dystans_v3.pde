@@ -175,8 +175,9 @@ void draw() {
      if (faces.length > 1 && button4) {
        if (faces[1].x < faces[0].x) {
        int widthfacesL = int(faces[0].x) - int(faces[1].x) - faces[1].width;
-       //println((widthfacesL*100/faces[0].width));
-        if ((widthfacesL*100/faces[0].width) < 1000 && widthfacesL > 0) {
+       //comment to report: average face width is about 15cm; distance divided by face width is x/15 
+       // if x/15 <10 then the distance between people is less than 150cm; however, this is difficult to do in the screen frame, so I reduced it to less than 75cm (widthfacesL/faces[0].width) < 5 // jezeli x/15 <10 to dystans miedzy osobami mniejszy niż 150cm; jest to jednak trudne do zrobiena w kadrze ekranu, wiec zmniejszyłam do mniej niż 75 cm (widthfacesL/faces[0].width) < 5
+        if ((widthfacesL/faces[0].width) < 5 && widthfacesL > 0) {
           //text drawing 
           textSize(widthfacesL/4);
           fill(255,0,0);
@@ -185,7 +186,7 @@ void draw() {
      }
        if (faces[0].x < faces[1].x) {
        int widthfaces = int(faces[1].x) - int(faces[0].x) - faces[0].width;
-       if ((widthfaces*100/faces[0].width) < 1000 && widthfaces > 0) {
+       if ((widthfaces/faces[0].width) < 5 && widthfaces > 0) {
          //text drawing
           textSize(widthfaces/4);
           fill(255,0,0);
