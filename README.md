@@ -39,6 +39,7 @@ recognition of markers to warn of danger.
 In scenario 1: recognition of the social distance between people, the app recognizes faces, assigns them a marker in the form of a cube, and shows the distance between people. The cube marker appearing above the recognized face can take 2 forms:
 - red filled - the person is too close;
 - blue edges - the person is at the correct distance or has been added to exceptions using the Add exception button.
+
 Two options are possible:
 - recognition of the distance between the camera and the other person;
 - recognizing the distance between a third person.
