@@ -40,6 +40,7 @@ Two options are possible:
 Use the Start/Stop, Distance, and Add exception buttons to navigate this section.
 
 Below you can see the Menu view of the application.
+
 ![Dystans_Main](https://user-images.githubusercontent.com/79842403/210446588-3c8cfb58-53fe-45d9-9f44-1355bad869dc.PNG)
 
 
